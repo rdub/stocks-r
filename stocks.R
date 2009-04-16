@@ -439,8 +439,9 @@ predict.do_it <- function(x, init.cap=10000, init.stock=0, bet=0.25, sell.ratio=
 	
 	# Today, we use the chaikon oscillator - it generates A LOT of trades, but keeps you in the black better than most
 	# Also try rdub.indicator(market$Close) for less trades
-	t <- trader2.eval(market, special.indicator(market), init.cap=init.cap, init.stock=init.stock, bet=bet, sell.ratio=sell.ratio)
-	plot(ts(t$trading[,c(2,4,5)]))
+	t <- trader2.eval(market, rdub.indicator(market$Close), init.cap=init.cap, init.stock=init.stock, bet=bet, sell.ratio=sell.ratio)
+	plot(ts(t$trading[,c(2,4,5)]), main="Trading Simulation")
+	title(sub=paste("Starting capital: ", as.character(init.cap) , "\nSell ratio: 1/", as.character(sell.ratio), "\nBet: ", as.character(bet*100), "%"))
 	
 	cat(paste("Today's predictions: Chaikon Oscillator:", as.character(special.indicator(market)[nrow(market)-1]),", rdub:",
 	as.character(rdub.indicator(market$Close)[nrow(market)]),
